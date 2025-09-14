@@ -89,14 +89,14 @@ function countParticipants() {
     let match;
 
     while ((match = regex.exec(text)) !== null) {
-        let name = match[1].trim();            // убираем пробелы
-        name = name.replace(/^,|,$/g, '');     // убираем ведущие и конечные запятые
+        let name = match[1].trim();
+        name = name.replace(/^,|,$/g, ''); // убираем лишние запятые
         const id = match[2];
-        const key = id;                        // уникальность по ID
-        if (!counter[key]) {
-            counter[key] = { name: name, count: 0 };
+
+        if (!counter[id]) {
+            counter[id] = { name: name, id: id, count: 0 };
         }
-        counter[key].count += 1;
+        counter[id].count += 1;
     }
 
     const ul = document.getElementById('result');
@@ -106,7 +106,7 @@ function countParticipants() {
           .sort((a,b) => b.count - a.count)
           .forEach(player => {
               const li = document.createElement('li');
-              li.textContent = `${player.name} (ID: ${player.id || ''}) — ${player.count} раз(а)`;
+              li.textContent = `${player.name} (ID: ${player.id}) — ${player.count} раз(а)`;
               ul.appendChild(li);
           });
 }
