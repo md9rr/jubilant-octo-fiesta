@@ -2,17 +2,104 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Участники</title>
+<title>Список участников</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f4f7f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    header {
+        background: #4a90e2;
+        color: white;
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    main {
+        flex: 1;
+        width: 90%;
+        max-width: 800px;
+        margin: 20px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 150px;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        resize: vertical;
+    }
+
+    button {
+        display: block;
+        margin: 15px auto;
+        padding: 10px 25px;
+        font-size: 16px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #357ab8;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        background: #f0f4f8;
+        margin: 5px 0;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #333;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: 0.2s;
+    }
+
+    li:hover {
+        background: #e1e8f0;
+    }
+</style>
 </head>
 <body>
-<h1>Список участников</h1>
-<textarea id="data" rows="10" cols="50">
-Иван Иванов (123)
-Пётр Петров (456)
-Иван Иванов (123)
-</textarea>
-<button onclick="countParticipants()">Посчитать</button>
-<ul id="result"></ul>
+
+<header>
+    <h1>Список участников</h1>
+</header>
+
+<main>
+    <textarea id="data" placeholder="Вставьте текст с участниками здесь..."></textarea>
+    <button onclick="countParticipants()">Посчитать</button>
+    <ul id="result"></ul>
+</main>
 
 <script>
 function countParticipants() {
@@ -24,8 +111,10 @@ function countParticipants() {
         const key = `${match[1].trim()} (ID: ${match[2]})`;
         counter[key] = (counter[key] || 0) + 1;
     }
+
     const ul = document.getElementById('result');
     ul.innerHTML = '';
+
     Object.entries(counter)
           .sort((a,b) => b[1]-a[1])
           .forEach(([k,v]) => {
@@ -35,5 +124,6 @@ function countParticipants() {
           });
 }
 </script>
+
 </body>
 </html>
