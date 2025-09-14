@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Участники</title>
+</head>
+<body>
+<h1>Список участников</h1>
+<textarea id="data" rows="10" cols="50">
+Иван Иванов (123)
+Пётр Петров (456)
+Иван Иванов (123)
+</textarea>
+<button onclick="countParticipants()">Посчитать</button>
+<ul id="result"></ul>
+
+<script>
+function countParticipants() {
+    const text = document.getElementById('data').value;
+    const regex = /([\wА-Яа-яЁё\s,\'-]+)\s*\((\d+)\)/g;
+    const counter = {};
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+        const key = `${match[1].trim()} (ID: ${match[2]})`;
+        counter[key] = (counter[key] || 0) + 1;
+    }
+    const ul = document.getElementById('result');
+    ul.innerHTML = '';
+    Object.entries(counter)
+          .sort((a,b) => b[1]-a[1])
+          .forEach(([k,v]) => {
+              const li = document.createElement('li');
+              li.textContent = `${k} — ${v} раз(а)`;
+              ul.appendChild(li);
+          });
+}
+</script>
+</body>
+</html>
